@@ -3,7 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
-const { NODE_ENV } = require('./config')
+const { NODE_ENV, DB_HOST, DB_NAME, DB_PASS, DB_USER } = require('./config')
 const foldersRouter = require('./folders/folders-router')
 const notesRouter = require('./notes/notes-router')
 
