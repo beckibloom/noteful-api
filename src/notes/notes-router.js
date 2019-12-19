@@ -24,23 +24,21 @@ notesRouter
       .catch(next)
   })
   .post(jsonParser, (req,res,next) => {
-    const { note_name, note_content, folder } = req.body
-    const newNote = { note_name, note_content, folder }
+    const { note_name, note_content, folder } = req.body;
+    const newNote = { note_name, note_content, folder };
 
     for (const [key, value] of Object.entries(newNote))
       if (value == null)
         return res.status(400).json({
           error:{message:`Missing ${key} in request body`}
         })
-    
-    NotesService.insertNote(
-      req.app.get('db'),
-      newNote
-    )
+
+    NotesService.insertNote(req.app.get('db'), newNote)
       .then(note => {
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${note.id}`))
+          .json(serializeNote(note))
       })
       .catch(next)
   })

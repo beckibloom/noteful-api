@@ -4,11 +4,13 @@ const NotesService = {
   },
 
   insertNote(knex, newNote) {
+    console.log('NotesService.insertNote ran')
     return knex
       .insert(newNote)
       .into('noteful_notes')
       .returning('*')
       .then(rows => {
+        console.log(rows);
         return rows[0]
       })
   },
